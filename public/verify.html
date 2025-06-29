@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EARNLANG - Email Verification</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="auth-container">
+            <div class="logo-section">
+                <div class="logo">
+                    <i class="fas fa-coins"></i>
+                    <h1>EARNLANG</h1>
+                </div>
+            </div>
+
+            <div class="verification-container">
+                <div class="verification-icon">
+                    <i class="fas fa-envelope-open-text"></i>
+                </div>
+                
+                <h2>Verify Your Email</h2>
+                <p>We've sent a verification link to your email address. Please check your inbox and click the link to verify your account.</p>
+                
+                <div class="email-info">
+                    <i class="fas fa-info-circle"></i>
+                    <span id="userEmail">user@example.com</span>
+                </div>
+                
+                <div class="verification-actions">
+                    <button id="resendBtn" class="btn-secondary">
+                        <i class="fas fa-redo"></i>
+                        Resend Email
+                    </button>
+                    
+                    <button id="changeEmailBtn" class="btn-outline">
+                        <i class="fas fa-edit"></i>
+                        Change Email
+                    </button>
+                </div>
+                
+                <div class="verification-tips">
+                    <h4>Didn't receive the email?</h4>
+                    <ul>
+                        <li>Check your spam/junk folder</li>
+                        <li>Make sure you entered the correct email address</li>
+                        <li>Wait a few minutes and try again</li>
+                    </ul>
+                </div>
+                
+                <div class="verification-footer">
+                    <p>Already verified? <a href="index.html">Login here</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Change Email Modal -->
+        <div id="changeEmailModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Change Email Address</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <form id="changeEmailForm">
+                    <div class="form-group">
+                        <label for="newEmail">New Email Address</label>
+                        <input type="email" id="newEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="currentPassword">Current Password</label>
+                        <input type="password" id="currentPassword" required>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-secondary" id="cancelChangeEmail">Cancel</button>
+                        <button type="submit" class="btn-primary">Update Email</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loadingOverlay" class="loading-overlay hidden">
+            <div class="spinner"></div>
+            <p>Processing...</p>
+        </div>
+
+        <!-- Notification -->
+        <div id="notification" class="notification hidden"></div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html> 

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EARNLANG - Cash Out</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <div class="logo">
+                    <i class="fas fa-coins"></i>
+                    <h1>EARNLANG</h1>
+                </div>
+            </div>
+            
+            <div class="header-center">
+                <div class="points-display">
+                    <i class="fas fa-star"></i>
+                    <span id="userPoints">0</span>
+                    <span class="points-label">Points</span>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <nav class="nav-menu">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tasks"></i>
+                        Tasks
+                    </a>
+                    <a href="profile.html" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        Profile
+                    </a>
+                    <a href="payout.html" class="nav-link active">
+                        <i class="fas fa-money-bill-wave"></i>
+                        Cash Out
+                    </a>
+                </nav>
+                
+                <div class="user-menu">
+                    <button class="user-btn" id="userMenuBtn">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="username">User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-dropdown hidden" id="userDropdown">
+                        <button class="dropdown-item" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="payout-main">
+            <div class="payout-container">
+                <!-- Payout Overview -->
+                <div class="payout-overview">
+                    <div class="overview-card">
+                        <div class="card-header">
+                            <h2>Cash Out via GCash</h2>
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="card-content">
+                            <div class="balance-info">
+                                <div class="balance-item">
+                                    <span class="balance-label">Available Points:</span>
+                                    <span class="balance-value" id="availablePoints">0</span>
+                                </div>
+                                <div class="balance-item">
+                                    <span class="balance-label">Cash Value:</span>
+                                    <span class="balance-value" id="cashValue">₱0.00</span>
+                                </div>
+                                <div class="balance-item">
+                                    <span class="balance-label">Exchange Rate:</span>
+                                    <span class="balance-value">10 points = ₱1.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payout-rules">
+                        <h3>Payout Rules</h3>
+                        <ul>
+                            <li>Minimum payout: ₱50.00 (500 points)</li>
+                            <li>Maximum payout: ₱10,000.00 per request</li>
+                            <li>Processing time: 24-48 hours</li>
+                            <li>Only one pending payout allowed at a time</li>
+                            <li>GCash number must be registered and verified</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Payout Form -->
+                <div class="payout-form-section">
+                    <div class="form-card">
+                        <h3>Request Payout</h3>
+                        <form id="payoutForm">
+                            <div class="form-group">
+                                <label for="gcashNumber">GCash Number</label>
+                                <input type="text" id="gcashNumber" placeholder="09XXXXXXXXX" required>
+                                <small>Enter your registered GCash mobile number</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="payoutAmount">Amount (₱)</label>
+                                <input type="number" id="payoutAmount" min="50" max="10000" step="10" required>
+                                <small>Minimum ₱50, Maximum ₱10,000</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="pointsRequired">Points Required</label>
+                                <input type="text" id="pointsRequired" readonly>
+                                <small>Points will be deducted from your balance</small>
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="confirmPayout" required>
+                                    <span class="checkmark"></span>
+                                    I confirm that the GCash number is correct and registered
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary" id="submitPayout">
+                                <i class="fas fa-paper-plane"></i>
+                                Submit Payout Request
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Payout History -->
+                <div class="payout-history-section">
+                    <div class="section-header">
+                        <h3>Payout History</h3>
+                        <div class="section-actions">
+                            <select id="historyFilter">
+                                <option value="all">All Payouts</option>
+                                <option value="pending">Pending</option>
+                                <option value="completed">Completed</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="payout-history" id="payoutHistory">
+                        <!-- Payout history items will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Payout Statistics -->
+                <div class="payout-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4 id="pendingPayouts">0</h4>
+                            <p>Pending Payouts</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4 id="completedPayouts">0</h4>
+                            <p>Completed Payouts</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4 id="totalPaidOut">₱0.00</h4>
+                            <p>Total Paid Out</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h4 id="lastPayout">-</h4>
+                            <p>Last Payout</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Payout Confirmation Modal -->
+    <div id="payoutConfirmModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Payout Request</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="confirmation-details">
+                    <div class="detail-item">
+                        <span class="detail-label">GCash Number:</span>
+                        <span class="detail-value" id="confirmGcashNumber"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Amount:</span>
+                        <span class="detail-value" id="confirmAmount"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Points Required:</span>
+                        <span class="detail-value" id="confirmPoints"></span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Processing Time:</span>
+                        <span class="detail-value">24-48 hours</span>
+                    </div>
+                </div>
+                <div class="confirmation-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Please ensure your GCash number is correct. Incorrect numbers may result in failed transfers.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelPayout">Cancel</button>
+                <button class="btn-primary" id="confirmPayoutBtn">
+                    <i class="fas fa-check"></i>
+                    Confirm Payout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Processing...</p>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification hidden"></div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/payout.js"></script>
+</body>
+</html> 

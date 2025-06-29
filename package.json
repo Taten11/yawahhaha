@@ -1,0 +1,44 @@
+{
+  "name": "earnlang-game",
+  "version": "1.1.0",
+  "description": "EARNLANG - Task-based earning game platform with GCash payouts",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "setup": "node setup.js",
+    "update": "npm update && npm audit fix",
+    "test": "node test-server.js"
+  },
+  "keywords": [
+    "earnlang",
+    "game",
+    "tasks",
+    "points",
+    "gcash",
+    "payouts",
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "EARNLANG Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^8.0.3",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "body-parser": "^1.20.2",
+    "nodemailer": "^6.9.7",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+} 

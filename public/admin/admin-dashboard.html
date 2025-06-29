@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EARNLANG - Admin Dashboard</title>
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <h2>EARNLANG</h2>
+                </div>
+                <p>Admin Panel</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="admin-dashboard.html" class="nav-link active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+                <a href="manage-tasks.html" class="nav-link">
+                    <i class="fas fa-tasks"></i>
+                    Manage Tasks
+                </a>
+                <a href="manage-users.html" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    Manage Users
+                </a>
+                <a href="payouts.html" class="nav-link">
+                    <i class="fas fa-money-bill-wave"></i>
+                    Payouts
+                </a>
+                <a href="reports.html" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    Reports
+                </a>
+                <a href="settings.html" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="btn-logout" id="adminLogoutBtn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <h1>Admin Dashboard</h1>
+                    <p>Welcome back, <span id="adminName">Admin</span></p>
+                </div>
+                
+                <div class="header-right">
+                    <div class="admin-info">
+                        <span class="admin-role">Administrator</span>
+                        <span class="last-login" id="lastLogin">-</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Stats Overview -->
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalUsers">0</h3>
+                            <p>Total Users</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalTasks">0</h3>
+                            <p>Active Tasks</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="pendingPayouts">0</h3>
+                            <p>Pending Payouts</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-coins"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 id="totalPoints">0</h3>
+                            <p>Total Points</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h2>Quick Actions</h2>
+                    <div class="actions-grid">
+                        <button class="action-btn" onclick="window.location.href='manage-tasks.html'">
+                            <i class="fas fa-plus"></i>
+                            <span>Add New Task</span>
+                        </button>
+                        
+                        <button class="action-btn" onclick="window.location.href='payouts.html'">
+                            <i class="fas fa-check"></i>
+                            <span>Review Payouts</span>
+                        </button>
+                        
+                        <button class="action-btn" onclick="window.location.href='manage-users.html'">
+                            <i class="fas fa-user-edit"></i>
+                            <span>Manage Users</span>
+                        </button>
+                        
+                        <button class="action-btn" onclick="window.location.href='reports.html'">
+                            <i class="fas fa-download"></i>
+                            <span>Export Reports</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="recent-activity">
+                    <div class="section-header">
+                        <h2>Recent Activity</h2>
+                        <button class="btn-secondary" id="refreshActivity">
+                            <i class="fas fa-sync-alt"></i>
+                            Refresh
+                        </button>
+                    </div>
+                    
+                    <div class="activity-list" id="activityList">
+                        <!-- Activity items will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- System Status -->
+                <div class="system-status">
+                    <h2>System Status</h2>
+                    <div class="status-grid">
+                        <div class="status-item">
+                            <span class="status-label">Database:</span>
+                            <span class="status-value online">Online</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">API:</span>
+                            <span class="status-value online">Online</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Maintenance Mode:</span>
+                            <span class="status-value offline">Disabled</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Last Backup:</span>
+                            <span class="status-value" id="lastBackup">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification hidden"></div>
+
+    <script src="../js/utils.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html> 

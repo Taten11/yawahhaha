@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EARNLANG - Profile</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <div class="logo">
+                    <i class="fas fa-coins"></i>
+                    <h1>EARNLANG</h1>
+                </div>
+            </div>
+            
+            <div class="header-center">
+                <div class="points-display">
+                    <i class="fas fa-star"></i>
+                    <span id="userPoints">0</span>
+                    <span class="points-label">Points</span>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <nav class="nav-menu">
+                    <a href="dashboard.html" class="nav-link">
+                        <i class="fas fa-tasks"></i>
+                        Tasks
+                    </a>
+                    <a href="profile.html" class="nav-link active">
+                        <i class="fas fa-user"></i>
+                        Profile
+                    </a>
+                    <a href="payout.html" class="nav-link">
+                        <i class="fas fa-money-bill-wave"></i>
+                        Cash Out
+                    </a>
+                </nav>
+                
+                <div class="user-menu">
+                    <button class="user-btn" id="userMenuBtn">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="username">User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-dropdown hidden" id="userDropdown">
+                        <button class="dropdown-item" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="profile-main">
+            <div class="profile-container">
+                <!-- Profile Header -->
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h2 id="profileUsername">Username</h2>
+                        <p id="profileEmail">user@example.com</p>
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <span class="stat-value" id="totalPointsEarned">0</span>
+                                <span class="stat-label">Total Points Earned</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="totalTasksCompleted">0</span>
+                                <span class="stat-label">Tasks Completed</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value" id="memberSince">-</span>
+                                <span class="stat-label">Member Since</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-actions">
+                        <button class="btn-primary" id="editProfileBtn">
+                            <i class="fas fa-edit"></i>
+                            Edit Profile
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Profile Tabs -->
+                <div class="profile-tabs">
+                    <button class="tab-btn active" data-tab="overview">
+                        <i class="fas fa-chart-line"></i>
+                        Overview
+                    </button>
+                    <button class="tab-btn" data-tab="tasks">
+                        <i class="fas fa-tasks"></i>
+                        Task History
+                    </button>
+                    <button class="tab-btn" data-tab="payouts">
+                        <i class="fas fa-money-bill-wave"></i>
+                        Payout History
+                    </button>
+                    <button class="tab-btn" data-tab="referrals">
+                        <i class="fas fa-users"></i>
+                        Referrals
+                    </button>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    <!-- Overview Tab -->
+                    <div id="overviewTab" class="tab-pane active">
+                        <div class="overview-grid">
+                            <div class="overview-card">
+                                <h3>Account Status</h3>
+                                <div class="status-item">
+                                    <span class="status-label">Email Verification:</span>
+                                    <span class="status-value" id="emailStatus">
+                                        <i class="fas fa-check-circle verified"></i>
+                                        Verified
+                                    </span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-label">Account Status:</span>
+                                    <span class="status-value" id="accountStatus">
+                                        <i class="fas fa-check-circle active"></i>
+                                        Active
+                                    </span>
+                                </div>
+                                <div class="status-item">
+                                    <span class="status-label">Last Login:</span>
+                                    <span class="status-value" id="lastLogin">-</span>
+                                </div>
+                            </div>
+
+                            <div class="overview-card">
+                                <h3>Earnings Summary</h3>
+                                <div class="earnings-item">
+                                    <span class="earnings-label">Total Earned:</span>
+                                    <span class="earnings-value" id="totalEarned">₱0.00</span>
+                                </div>
+                                <div class="earnings-item">
+                                    <span class="earnings-label">Total Paid Out:</span>
+                                    <span class="earnings-value" id="totalPaidOut">₱0.00</span>
+                                </div>
+                                <div class="earnings-item">
+                                    <span class="earnings-label">Pending Payouts:</span>
+                                    <span class="earnings-value" id="pendingPayouts">₱0.00</span>
+                                </div>
+                            </div>
+
+                            <div class="overview-card">
+                                <h3>Recent Activity</h3>
+                                <div class="activity-list" id="recentActivity">
+                                    <!-- Recent activity items -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Task History Tab -->
+                    <div id="tasksTab" class="tab-pane">
+                        <div class="section-header">
+                            <h3>Task Completion History</h3>
+                            <div class="section-actions">
+                                <select id="taskFilter">
+                                    <option value="all">All Tasks</option>
+                                    <option value="today">Today</option>
+                                    <option value="week">This Week</option>
+                                    <option value="month">This Month</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="task-history" id="taskHistory">
+                            <!-- Task history items -->
+                        </div>
+                    </div>
+
+                    <!-- Payout History Tab -->
+                    <div id="payoutsTab" class="tab-pane">
+                        <div class="section-header">
+                            <h3>Payout History</h3>
+                            <div class="section-actions">
+                                <select id="payoutFilter">
+                                    <option value="all">All Payouts</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="rejected">Rejected</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="payout-history" id="payoutHistory">
+                            <!-- Payout history items -->
+                        </div>
+                    </div>
+
+                    <!-- Referrals Tab -->
+                    <div id="referralsTab" class="tab-pane">
+                        <div class="referral-info">
+                            <div class="referral-card">
+                                <h3>Your Referral Code</h3>
+                                <div class="referral-code">
+                                    <input type="text" id="referralCode" readonly>
+                                    <button class="btn-secondary" id="copyReferralBtn">
+                                        <i class="fas fa-copy"></i>
+                                        Copy
+                                    </button>
+                                </div>
+                                <p>Share this code with friends to earn bonus points!</p>
+                            </div>
+
+                            <div class="referral-stats">
+                                <div class="stat-card">
+                                    <h4 id="referralCount">0</h4>
+                                    <p>Total Referrals</p>
+                                </div>
+                                <div class="stat-card">
+                                    <h4 id="referralEarnings">0</h4>
+                                    <p>Points from Referrals</p>
+                                </div>
+                            </div>
+
+                            <div class="referred-users">
+                                <h3>Referred Users</h3>
+                                <div class="users-list" id="referredUsers">
+                                    <!-- Referred users list -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="editProfileModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Profile</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="editProfileForm">
+                <div class="form-group">
+                    <label for="editUsername">Username</label>
+                    <input type="text" id="editUsername" required minlength="3" maxlength="20">
+                </div>
+                <div class="form-group">
+                    <label for="editEmail">Email</label>
+                    <input type="email" id="editEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" id="cancelEdit">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification hidden"></div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html> 

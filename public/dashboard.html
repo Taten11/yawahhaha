@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EARNLANG - Task Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-left">
+                <div class="logo">
+                    <i class="fas fa-coins"></i>
+                    <h1>EARNLANG</h1>
+                </div>
+            </div>
+            
+            <div class="header-center">
+                <div class="points-display">
+                    <i class="fas fa-star"></i>
+                    <span id="userPoints">0</span>
+                    <span class="points-label">Points</span>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="user-menu">
+                    <button class="user-btn" id="userMenuBtn">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="username">User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="user-dropdown hidden" id="userDropdown">
+                        <a href="profile.html" class="dropdown-item">
+                            <i class="fas fa-user"></i>
+                            Profile
+                        </a>
+                        <a href="payout.html" class="dropdown-item">
+                            <i class="fas fa-money-bill-wave"></i>
+                            Cash Out
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Stats Cards -->
+            <div class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalTasks">0</h3>
+                        <p>Tasks Completed</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalEarned">0</h3>
+                        <p>Points Earned</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="todayTasks">0</h3>
+                        <p>Today's Tasks</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="referralCount">0</h3>
+                        <p>Referrals</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task Categories -->
+            <div class="task-categories">
+                <button class="category-btn active" data-category="all">
+                    <i class="fas fa-th"></i>
+                    All Tasks
+                </button>
+                <button class="category-btn" data-category="daily">
+                    <i class="fas fa-calendar-day"></i>
+                    Daily
+                </button>
+                <button class="category-btn" data-category="referral">
+                    <i class="fas fa-users"></i>
+                    Referrals
+                </button>
+                <button class="category-btn" data-category="login">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Login
+                </button>
+            </div>
+
+            <!-- Tasks Grid -->
+            <div class="tasks-section">
+                <div class="section-header">
+                    <h2>Available Tasks</h2>
+                    <div class="section-actions">
+                        <button class="btn-secondary" id="refreshTasks">
+                            <i class="fas fa-sync-alt"></i>
+                            Refresh
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="tasks-grid" id="tasksGrid">
+                    <!-- Tasks will be loaded here -->
+                </div>
+                
+                <div class="no-tasks hidden" id="noTasks">
+                    <i class="fas fa-inbox"></i>
+                    <h3>No tasks available</h3>
+                    <p>Check back later for new tasks!</p>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="activity-section">
+                <h3>Recent Activity</h3>
+                <div class="activity-list" id="activityList">
+                    <!-- Activity items will be loaded here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Task Completion Modal -->
+    <div id="taskModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="taskModalTitle">Complete Task</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="task-details">
+                    <div class="task-info">
+                        <h4 id="taskTitle">Task Title</h4>
+                        <p id="taskDescription">Task description goes here...</p>
+                        <div class="task-rewards">
+                            <i class="fas fa-star"></i>
+                            <span id="taskPoints">0</span> points
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="cancelTask">Cancel</button>
+                <button class="btn-primary" id="completeTask">
+                    <i class="fas fa-check"></i>
+                    Complete Task
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification hidden"></div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html> 
